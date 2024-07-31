@@ -1,24 +1,26 @@
-import {Component, Input} from '@angular/core';
+import {Component} from '@angular/core';
 import {MessageComponent} from "../message/message.component";
+import {NgForOf, NgIf} from "@angular/common";
+import {MessagesService} from "../services/messages.service";
+import {Message} from "../interfaces/message";
+
 
 @Component({
   selector: 'app-list-messages',
   standalone: true,
   imports: [
+    NgForOf,
+    NgIf,
     MessageComponent
   ],
   templateUrl: './list-messages.component.html',
   styleUrl: './list-messages.component.css'
 })
 export class ListMessagesComponent {
-  listMessages: MessageComponent[] =[];
+  // listMessages : {author: string, content: string, date: Date}[] = [];
+  listMessages: Message [] = [];
 
-  sendMessage(auteur: string, text: string) {
-    let message = new MessageComponent();
-    message.text = text;
-    message.auteur = auteur;
-    this.listMessages.push(message);
-    console.log('Sending message...');
-    console.log(message);
+  constructor(private service: MessagesService) {
+    this.listMessages = this.service.messages;
   }
 }

@@ -1,10 +1,6 @@
 <section>
-  <fieldset>
-    <div >
-      <app-message  *ngFor="let message of listMessages"
-                    [auteur]="message.auteur" [text]="message.text">
-      </app-message>
-    </div>
-
-  </fieldset>
+  <div *ngFor="let msg of listMessages">
+    <app-message [message]="msg"></app-message>
+  </div>
+  <p *ngIf="listMessages.length == 0">Personne n'a écrit... !</p>
 </section>

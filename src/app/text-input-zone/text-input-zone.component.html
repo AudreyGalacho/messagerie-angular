@@ -1,14 +1,13 @@
 <!-- text-input-zone.component.html -->
 <div class="text-input-zone">
-  <form>
+  <form (submit)="sendMessage()">
     <fieldset>
       <label for="pseudo">Auteur</label>
-      <input id="pseudo" type="text" [(ngModel)]="author" placeholder="pseudo" />
+      <input id="pseudo" type="text" name="pseudo" [(ngModel)]="auteur" placeholder="pseudo" />
       <label for="message-text">Message</label>
-      <textarea id="message-text" placeholder="Votre texte ici"></textarea>
+      <textarea id="message-text"  name="message" placeholder="Votre texte ici" [(ngModel)]="text"></textarea>
     </fieldset>
-    <button (click)="sendMessage()">Envoyer</button>
+    <input type="submit" value="Envoyer"/>
   </form>
-
 </div>
 

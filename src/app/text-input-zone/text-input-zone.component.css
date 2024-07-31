@@ -3,13 +3,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
-  background-color: #f8f9fa;
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 600px;
-  margin: 0 auto;
+  margin: 10vw auto;
+  background: linear-gradient(135deg, rgba(255,0,0,0.2), rgba(255,255,0,0.2), rgba(0,255,0,0.2), rgba(0,255,255,0.2), rgba(0,0,255,0.2), rgba(255,0,255,0.2));
+  border-radius: 15px; /* Coins arrondis */
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Ombre légère */
 }
 
 .text-input-zone form {

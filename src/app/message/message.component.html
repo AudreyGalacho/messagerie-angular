@@ -1,6 +1,7 @@
 <div>
-  <p> {{ auteur }} </p>
-  <p> {{ text }} </p>
+  <p>
+    <em>{{ message.date | date:'hh:mm dd/MM' }} </em><strong>{{ message.auteur}} </strong> :
+  </p>
+  <p>{{ message.text }}</p>
 </div>
-
 

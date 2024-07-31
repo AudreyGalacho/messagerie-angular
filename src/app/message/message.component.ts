@@ -1,15 +1,18 @@
 import {Component, Input} from '@angular/core';
+import {DatePipe} from "@angular/common";
+import {Message} from "../interfaces/message";
 
 @Component({
   selector: 'app-message',
   standalone: true,
-  imports: [],
+  imports: [
+    DatePipe
+  ],
   templateUrl: './message.component.html',
   styleUrl: './message.component.css'
 })
-export class MessageComponent {
-  /* signifie qu'il peut etre renseigné pas un composant parant*/
-  @Input() auteur: string ="";
-  @Input() text: string ="";
 
+
+export class MessageComponent {
+  @Input() message !: Message;
 }
