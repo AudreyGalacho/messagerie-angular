@@ -1,0 +1,10 @@
+<section>
+  <fieldset>
+    <div >
+      <app-message  *ngFor="let message of listMessages"
+                    [auteur]="message.auteur" [text]="message.text">
+      </app-message>
+    </div>
+
+  </fieldset>
+</section>
