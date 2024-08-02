@@ -1,0 +1,21 @@
+<!-- text-input-zone.component.html -->
+<div class="text-input-zone">
+  <form (submit)="sendMessage()">
+    <label *ngIf="serviceUser.userLogged?.isLogged" [(ngModel)]="auteur">
+      {{ serviceUser.userLogged?.pseudo }}:</label>
+    <label hidden="" for="message-text"></label>
+    <textarea id="message-text" name="message" placeholder="Votre texte ici"
+              [(ngModel)]="text">
+    </textarea>
+    <input type="submit" value="Envoyer"/>
+  </form>
+  <a routerLink="/lister-users">Liste des users</a>
+</div>
+<p *ngIf="!serviceUser.userLogged?.isLogged">
+  <em>Vous devez vous connecter pour prendre part au feed...</em>
+  <a routerLink="/">
+    ici
+  </a>
+</p>
+
+

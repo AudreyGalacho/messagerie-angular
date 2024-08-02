@@ -1,0 +1,24 @@
+.main-container {
+  display: flex;
+  flex-direction: row;
+  width: 90vw;
+  height: 70vh;
+  margin: 5vh auto;
+  box-sizing: border-box;
+}
+
+.users {
+  width: 30%;
+  margin: 0 8px;
+  background: rgba(255, 255, 255, 0.45);
+  border-radius: 15px;
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.feed-text {
+  width: 70%;
+  margin: 0 8px;
+
+}
+

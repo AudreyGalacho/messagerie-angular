@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
 import {MessageComponent} from "../message/message.component";
 import {NgForOf, NgIf} from "@angular/common";
-import {MessagesService} from "../services/messages.service";
-import {Message} from "../interfaces/message";
+import {MessagesService} from "../../../services/messages.service";
+import {Message} from "../../../interfaces/message";
 
 
 @Component({

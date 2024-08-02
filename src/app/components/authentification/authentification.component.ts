@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {FormsModule} from "@angular/forms";
 import {Router, RouterLink} from "@angular/router";
 import {UsersService} from "../../services/users.service";
+import {User} from "../../interfaces/user";
 
 @Component({
   selector: 'app-authentification',
@@ -14,20 +15,31 @@ import {UsersService} from "../../services/users.service";
   styleUrl: './authentification.component.css'
 })
 export class AuthentificationComponent {
-  username: string = '';
+  pseudo: string = '';
   password: string = '';
 
   constructor(private router: Router, private userService: UsersService) {
   }//injection de Router pour la navigation
 
-  login() {
-    console.log('Tentative de connexion avec', this.username, this.password);
-    if (this.userService.findUser(this.username, this.password)) {
-      this.userService.userLogged={pseudo: this.username, password: this.password, isLogged: true};
-
-      this.router.navigate(['/feed-messages'])
-        .then(r => console.log('user logged in'));
+  async login() {
+    console.log('Tentative de connexion avec', this.pseudo, this.password);
+    let user: User = {pseudo: this.pseudo, password: this.password, isLogged:true};
+    try {
+      let response = await this.userService.findUser(user);
+      console.log(response);
+      if (response) {
+        this.userService.userLogged = {pseudo: this.pseudo, password: this.password, isLogged: true};
+        console.log(this.userService.userLogged );
+        this.router.navigate(['/feed-messages'])
+          .then(r => console.log('user logged in', r));
+      } else {
+        console.log('Connexion échouée');
+      }
+    } catch (error) {
+      console.error('Erreur lors de la tentative de connexion', error);
     }
+
+
   }
 
   async navigateToRegister() {

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import {FormsModule} from "@angular/forms";
 import {Router, RouterLink} from "@angular/router";
-import {MessagesService} from "../../services/messages.service";
 import {UsersService} from "../../services/users.service";
 import {User} from "../../interfaces/user";
 
@@ -22,15 +21,15 @@ export class RegisterComponent {
 
   constructor(private router: Router, private serviceUser: UsersService) {
   }
-  register() {
+  async register() {
     if (this.password !== this.confirmPassword) {
       console.error('Les mots de passe ne correspondent pas');
       return;
     }
     //creation user
-    const newUser: User = { pseudo: this.pseudo, password: this.password, isLogged: true  };
+    const newUser: User = {pseudo: this.pseudo, password: this.password, isLogged: false};
     console.log('Tentative d\'enregistrement avec', newUser);
-    this.serviceUser.addNewUser(newUser);
+    await this.serviceUser.addNewUser(newUser).then(r => console.log(r));
 
   }
   async goToLogin() {

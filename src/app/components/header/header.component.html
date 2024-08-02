@@ -1,0 +1,16 @@
+<header class="header">
+  <div>
+    <h2>{{ appName }}</h2>
+    <a routerLink="/">
+    <img ngSrc="/logo.png" alt="App Logo" width="32" height="32"/>
+    </a>
+  </div>
+  <div>
+    <button (click)="logout()" *ngIf="serviceUser.userLogged?.isLogged">
+      Déconnexion
+    </button>
+    <button routerLink="/communes">
+      Communes
+    </button>
+  </div>
+</header>

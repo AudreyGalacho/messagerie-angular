@@ -1,3 +1,5 @@
 export interface User {
-  pseudo:string
+  "pseudo": string,
+  "password"?: string
+  "isLogged"?: boolean,
 }

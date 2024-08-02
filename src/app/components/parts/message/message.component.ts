@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {DatePipe} from "@angular/common";
-import {Message} from "../interfaces/message";
+import {Message} from "../../../interfaces/message";
 
 @Component({
   selector: 'app-message',
