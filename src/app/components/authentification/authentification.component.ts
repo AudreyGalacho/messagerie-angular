@@ -25,11 +25,12 @@ export class AuthentificationComponent {
     console.log('Tentative de connexion avec', this.pseudo, this.password);
     let user: User = {pseudo: this.pseudo, password: this.password, isLogged:true};
     try {
-      let response = await this.userService.findUser(user);
+      let response = await this.userService.findUser(user) || {};
       console.log(response);
       if (response) {
-        this.userService.userLogged = {pseudo: this.pseudo, password: this.password, isLogged: true};
-        console.log(this.userService.userLogged );
+        let userLoged: User = {pseudo: this.pseudo, password: this.password, isLogged: true};
+        sessionStorage.setItem("userLogged", JSON.stringify(user));
+        //console.log(sessionStorage.getItem("userLogged"));
         this.router.navigate(['/feed-messages'])
           .then(r => console.log('user logged in', r));
       } else {
@@ -38,8 +39,6 @@ export class AuthentificationComponent {
     } catch (error) {
       console.error('Erreur lors de la tentative de connexion', error);
     }
-
-
   }
 
   async navigateToRegister() {

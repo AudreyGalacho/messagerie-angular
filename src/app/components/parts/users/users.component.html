@@ -1,7 +1,7 @@
 <section class="user-zone">
   <p *ngIf="usersApi.length ===0"><em>*Bruits de criquets*</em></p>
   <div *ngFor=" let user of usersApi">
-    <p>{{user.pseudo}}</p>
+    <p>{{user.pseudo}} {{user.isLogged?"is online":"is offline"}}</p>
   </div>
   <button (click)="usersService.fetchUsers()">Fetch Users</button>
   <a routerLink="/lister-messages">Liste des messages</a>

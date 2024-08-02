@@ -1,8 +1,7 @@
 import {Injectable} from '@angular/core';
 import {User} from "../interfaces/user";
 import {Router} from "@angular/router";
-import {HttpClient} from "@angular/common/http";
-
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -11,50 +10,27 @@ export class UsersService {
   userLogged?: User;
   private apiUrl = "http://localhost";
 
-
   constructor(private router: Router, private client: HttpClient) {
   }
 
   async fetchUsers(): Promise<User[]> {
-    return this.client.get<User[]>(
-      `${this.apiUrl}/users`
-    ).toPromise() as Promise<User[]>;
-    // console.log('Fetching users');
-    // // this.users = this.client.get<User[]>(this.apiUrl)
-    // this.client.get<User[]>(this.apiUrl).subscribe(resUsers =>{
-    //   this.users = resUsers as User[]
-
-    // });
-    // return this.users;
+    return await this.client.get<User[]>(`${this.apiUrl}/users`).toPromise() || [];
   }
 
-  // findUser(pseudo: string, password: string){
-  //   let response: boolean;
-  //   let body = {
-  //     "pseudo": pseudo,
-  //     "password": password
-  //   }
-  //   this.client.post<User>(`${this.apiUrl}/check-user`, body).subscribe(
-  //     (response)=>   {
-  //       console.log("c'est bon");
-  //     },
-  //     (error) => {
-  //       console.log("c'est bon");
-  //     }
-  //   )
-  // }
-  findUser(user : User) {
+  async findUser(user: User) {
     return new Promise((resolve, reject) => {
       let body = {
         "pseudo": user.pseudo,
         "password": user.password
       };
-      this.client.post(`${this.apiUrl}/check-user`, body).subscribe(
+      const header: HttpHeaders = new HttpHeaders({
+            "Content-Type": "application/json"
+          });
+      this.client.post(`${this.apiUrl}/check-user`, body, {headers:header}).subscribe(
         (response) => {
           resolve(true);
         },
         (error) => {
-          console.log("erreur");
           resolve(false);
         }
       );
@@ -62,11 +38,15 @@ export class UsersService {
   }
 
   async addNewUser(user: User) {
+    const headers = new Headers({
+        "Content-Type": "application/json"
+      }
+    );
     console.log(user);
     if (user.password != null) {
       try {
         let userExist = await this.findUser(user);
-        this.userLogged =<User> userExist;
+        this.userLogged = <User> userExist;
         console.log(userExist);
         if (!userExist) {
           console.log("New user!");
@@ -87,11 +67,11 @@ export class UsersService {
             );
           });
         }
-      } catch (erreur){
+      } catch (erreur) {
         console.log(erreur);
       }
     }
-    return ;
+    return;
   }
 
   logout() {
