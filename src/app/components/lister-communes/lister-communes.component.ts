@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CommunesService} from "../../services/communes.service";
 import {Commune} from "../../interfaces/commune";
 import {NgForOf} from "@angular/common";
@@ -11,7 +11,7 @@ import {NgForOf} from "@angular/common";
   templateUrl: './lister-communes.component.html',
   styleUrl: './lister-communes.component.css'
 })
-export class ListerCommunesComponent {
+export class ListerCommunesComponent implements OnInit{
   communes: Commune[]= [];
   constructor(private communesService: CommunesService) {
   }
@@ -24,11 +24,4 @@ export class ListerCommunesComponent {
       console.error('Error fetching communes', error);
     }
   }
-  // ngOnInit() {
-  //   try {
-  //     this.communes = this.communesService.fetchCommunes();
-  //   } catch (error) {
-  //     console.error('Error fetching communes', error);
-  //   }
-  // }
 }
