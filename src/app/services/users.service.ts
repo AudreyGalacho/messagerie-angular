@@ -13,7 +13,6 @@ export class UsersService {
 
 
   constructor(private router: Router, private client: HttpClient) {
-    // this.users = this.fetchUsers()
   }
 
   async fetchUsers(): Promise<User[]> {
@@ -56,8 +55,7 @@ export class UsersService {
         },
         (error) => {
           console.log("erreur");
-          return false
-          // reject(false);
+          resolve(false);
         }
       );
     });
@@ -67,10 +65,12 @@ export class UsersService {
     console.log(user);
     if (user.password != null) {
       try {
-        let userList:User[] = await this.fetchUsers()
-        console.log(userList.includes(user));
-        if (userList.includes(user)) {
+        let userExist = await this.findUser(user);
+        this.userLogged =<User> userExist;
+        console.log(userExist);
+        if (!userExist) {
           console.log("New user!");
+
           return new Promise((resolve, reject) => {
             let body = {
               "pseudo": user.pseudo,
@@ -94,19 +94,6 @@ export class UsersService {
     return ;
   }
 
-    //   if(this.users.includes(user)){
-    //     console.log("user exist");
-    //     return;
-    //   }
-    //   if(!this.users.includes(user)){
-    //     user.isLogged = true;
-    //     this.users.push(user);
-    //     this.userLogged = user;
-    //     console.log(this.users);
-    //     this.goToFeed();
-    //   }
-
-
   logout() {
     //recup de l'user log
     if (this.userLogged) {
@@ -114,10 +101,6 @@ export class UsersService {
     }
     this.redirectToAuthentification().then(r => console.log("logout"));
   }
-
-  // findUser(pseudo: string, password: string) {
-  //   return  this.users.find(user => user.pseudo === pseudo && user.password === password);
-  // }
 
   /********************* NAVIGATION **************************/
   async redirectToAuthentification() {

@@ -29,7 +29,10 @@ export class RegisterComponent {
     //creation user
     const newUser: User = {pseudo: this.pseudo, password: this.password, isLogged: false};
     console.log('Tentative d\'enregistrement avec', newUser);
-    await this.serviceUser.addNewUser(newUser).then(r => console.log(r));
+    let result = await this.serviceUser.addNewUser(newUser);
+    if (result){
+      await this.router.navigate(['/feed-messages'])
+    }
 
   }
   async goToLogin() {
