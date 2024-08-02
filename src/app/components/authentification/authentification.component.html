@@ -1,0 +1,18 @@
+<div class="login-container">
+  <h2>Connexion</h2>
+  <form (submit)="login()" class="login-form">
+    <div class="form-group">
+      <label for="username">Nom d'utilisateur</label>
+      <input id="username" type="text" [(ngModel)]="username" name="username" required>
+    </div>
+    <div class="form-group">
+      <label for="password">Mot de passe</label>
+      <input id="password" type="password" [(ngModel)]="password" name="password" required>
+    </div>
+    <button class="submit-button">Se connecter</button>
+  </form>
+  <p><em>Pas encore de compte ? </em><a routerLink="/register">S'inscrire ici</a></p>
+<!--  <a (click)="navigateToFlux()">Mode invité</a>-->
+</div>
+
+
