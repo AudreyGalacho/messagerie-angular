@@ -1,16 +1,29 @@
 import {Injectable} from '@angular/core';
 import {Message} from "../interfaces/message";
+import {User} from "../interfaces/user";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class MessagesService {
-  messages: Message[] = [];
+  private apiUrl = "http://localhost";
 
-  constructor() {
+  constructor(private client: HttpClient) {
   }
-  addMessage(message: Message) {
-    this.messages.push(message);
+
+  async fetchMessages(): Promise<Message[]> {
+    return await this.client.get<Message[]>(`${this.apiUrl}/messages`).toPromise() || [];
+  }
+
+
+
+  async addMessage(message: Message) {
+    const header: HttpHeaders = new HttpHeaders({
+      "Content-Type": "application/json"
+    });
+    return await this.client.post(
+      `${this.apiUrl}/messages`, message, {headers: header}).toPromise()
   }
 }
