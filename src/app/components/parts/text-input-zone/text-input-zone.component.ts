@@ -5,6 +5,7 @@ import {Message} from "../../../interfaces/message";
 import {RouterLink} from "@angular/router";
 import {UsersService} from "../../../services/users.service";
 import {NgIf} from "@angular/common";
+import {User} from "../../../interfaces/user";
 
 @Component({
   selector: 'app-text-input-zone',
@@ -18,24 +19,28 @@ import {NgIf} from "@angular/common";
   styleUrl: './text-input-zone.component.css'
 })
 export class TextInputZoneComponent {
-  auteur: string = "";
-  text: string = "";
+  author: string = "";
+  content: string = "";
 
   constructor(private service: MessagesService, protected serviceUser: UsersService) {
   }
 
   sendMessage() {
-    // console.log(this.serviceUser.users);
-    if (!this.serviceUser.userLogged?.pseudo) {
+    let userJson = sessionStorage.getItem("user") ||"";
+    let user :User = JSON.parse(userJson);
+    console.log(user);
+    if (!user.pseudo) {
       console.error('User not found');
       return;
     }
     const newMessage: Message = {
-      auteur: this.serviceUser.userLogged?.pseudo,
-      text: this.text,
+      author: user.pseudo,
+      content: this.content,
       date: new Date()
     };
     this.service.addMessage(newMessage);
-    this.text = "";
+    this.content = "";
   }
+
+  protected readonly sessionStorage = sessionStorage;
 }

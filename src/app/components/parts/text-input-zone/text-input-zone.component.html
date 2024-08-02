@@ -1,11 +1,11 @@
 <!-- text-input-zone.component.html -->
 <div class="text-input-zone">
   <form (submit)="sendMessage()">
-    <label *ngIf="serviceUser.userLogged?.isLogged" [(ngModel)]="auteur">
-      {{ serviceUser.userLogged?.pseudo }}:</label>
+    <label *ngIf="serviceUser.userLogged?.isLogged" [(ngModel)]="author">
+      {{ sessionStorage.getItem("user")}}:</label>
     <label hidden="" for="message-text"></label>
     <textarea id="message-text" name="message" placeholder="Votre texte ici"
-              [(ngModel)]="text">
+              [(ngModel)]="content">
     </textarea>
     <input type="submit" value="Envoyer"/>
   </form>
